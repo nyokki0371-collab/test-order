@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タピオカ注文</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 背景スライドショー -->
+  <div class="bg-slideshow">
+    <div class="bg-slide active" style="background-image: url('images/bg_tapioca1.png');"></div>
+    <div class="bg-slide" style="background-image: url('images/bg_tapioca2.png');"></div>
+    <div class="bg-slide" style="background-image: url('images/bg_tapioca3.png');"></div>
+  </div>
+
+  <!-- ログイン画面 -->
+  <div id="login-screen" class="container" style="padding-top: 100px;">
+    <h2 style="text-align:center;margin-bottom:20px;color:var(--primary-color);">注文画面へ進む</h2>
+    
+    <!-- 注意事項 -->
+    <div style="background-color: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 0.95rem; text-align: left;">
+      <p style="font-weight: bold; margin-bottom: 5px;">⚠️ ご注文時の注意事項</p>
+      <ul style="margin-left: 20px; padding-left: 0;">
+        <li>注文名は<strong>本名にしない</strong>でください（ニックネーム等）。</li>
+        <li>原則、注文完了後の<strong>キャンセルはできません</strong>。</li>
+      </ul>
+    </div>
+
+    <p style="text-align:center;margin-bottom:20px;font-size:1.1rem;color:#555;font-weight:bold;">
+      qr下部に記載のパスワードを打ち込んでね
+    </p>
+    <div class="form-group">
+      <input type="text" id="visitor-password" placeholder="パスワードを入力">
+      <div class="error-msg" id="visitor-password-error">パスワードが違います</div>
+    </div>
+    <button class="btn" id="btn-visitor-login">注文画面へ</button>
+  </div>
+
+  <!-- メインアプリ（ログイン後に表示） -->
+  <div id="main-app" class="hidden">
+    <!-- タブナビゲーション -->
+    <div class="tabs">
+      <button class="tab-btn active" id="tab-order">注文</button>
+      <button class="tab-btn" id="tab-waiting">待ち一覧</button>
+    </div>
+
+  <!-- 読み込み中 -->
+  <div id="loading" class="loading hidden">読み込み中...</div>
+
+  <div class="container">
+    <!-- 注文画面 -->
+    <div id="view-order">
+      <!-- 商品画像 -->
+      <div style="text-align: center; margin-bottom: 20px;">
+        <img src="images/tapioca_product.png" alt="タピオカミルクティー" style="max-width: 100%; height: auto; max-height: 250px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+      </div>
+
+      <!-- 注意事項 -->
+      <div style="background-color: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 0.95rem; text-align: left;">
+        <p style="font-weight: bold; margin-bottom: 5px;">⚠️ ご注文時の注意事項</p>
+        <ul style="margin-left: 20px; padding-left: 0;">
+          <li>注文名は<strong>本名にしない</strong>でください（ニックネーム等）。</li>
+          <li>原則、注文完了後の<strong>キャンセルはできません</strong>。</li>
+        </ul>
+      </div>
+
+      <form id="order-form">
+        <div class="form-group">
+          <label for="name">名前 <span style="color:red">*</span></label>
+          <input type="text" id="name" required placeholder="例: 田中">
+          <div class="error-msg" id="name-error">名前を入力してください</div>
+        </div>
+
+        <div class="form-group">
+          <label for="location">場所</label>
+          <select id="location" required>
+            <option value="1階">1階</option>
+            <option value="3階">3階</option>
+            <option value="4階">4階</option>
+            <option value="5階">5階</option>
+            <option value="6階">6階</option>
+            <option value="7階">7階</option>
+            <option value="8階">8階</option>
+            <option value="9階">9階</option>
+            <option value="店舗受け取り">店舗受け取り</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="quantity">個数</label>
+          <input type="number" id="quantity" min="1" max="10" value="1" required>
+          <div class="error-msg" id="quantity-error">1〜10の数字を入力してください</div>
+        </div>
+
+        <button type="submit" class="btn" id="submit-btn">注文する</button>
+      </form>
+
+      <!-- 注文完了 -->
+      <div id="complete-screen">
+        <h2>注文完了！</h2>
+        <div class="ticket-display">
+          <div class="ticket-label">整理券番号</div>
+          <div class="ticket-number" id="ticket-result">0000</div>
+        </div>
+        <button class="btn" id="btn-next-order">続けて注文する</button>
+      </div>
+    </div>
+
+    <!-- 待ち一覧画面 -->
+    <div id="view-waiting" class="hidden">
+      <div class="waiting-list" id="waiting-list">
+        <!-- 待ち項目がここに追加される -->
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script type="module" src="index.js"></script>
+</body>
+</html>
